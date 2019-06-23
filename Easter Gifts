@@ -1,0 +1,54 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Easter_Gifts
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			List<string> gifst = Console.ReadLine().Split().ToList();
+
+			while (true)
+			{
+				string[] imput = Console.ReadLine().Split().ToArray();
+
+				if (imput[0].Equals("No"))
+				{
+					break;
+				}
+				else if (imput[0].Equals("OutOfStock"))
+				{
+					for (int i = 0; i < gifst.Count; i++)
+					{
+						if (gifst[i].Equals(imput[1]))
+						{
+							gifst[i] = "None";
+						}
+					}
+				}
+				else if (imput[0].Equals("Required"))
+				{
+					int index = int.Parse(imput[2]);
+
+					if (index >= 0 && index < gifst.Count)
+					{
+						gifst[index] = imput[1];
+					}
+				}
+				else
+				{
+					gifst[gifst.Count - 1] = imput[1];
+				}
+			}
+
+			for (int i = 0; i < gifst.Count; i++)
+			{
+				gifst.Remove("None");
+			}
+
+			Console.WriteLine(string.Join(" ", gifst));
+		}
+	}
+}
