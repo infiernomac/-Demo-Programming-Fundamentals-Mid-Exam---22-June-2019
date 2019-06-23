@@ -1,0 +1,53 @@
+using System;
+
+namespace Party_Profit
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			int partySize = int.Parse(Console.ReadLine());
+			int days = int.Parse(Console.ReadLine());
+
+			double coins = 0;
+			int coinsForFood = 2;
+			int coinsForWater = 3;
+			int bossKill = 20;
+
+			for (int i = 1; i <= days; i++)
+			{
+				if ((i % 10).Equals(0))
+				{
+					partySize -= coinsForFood;
+				}
+
+				if ((i % 15).Equals(0))
+				{
+					partySize += coinsForFood + coinsForWater;
+				}
+
+				coins += 50;
+				coins -= coinsForFood * partySize;
+
+				if ((i % 3).Equals(0))
+				{
+					coins -= coinsForWater * partySize;
+				}
+
+				if ((i % 5).Equals(0))
+				{
+					coins += partySize * bossKill;
+
+					if ((i % 3).Equals(0))
+					{
+						coins -= coinsForFood * partySize;
+					}
+				}
+			}
+
+			int sum = (int)(coins / partySize);
+
+			Console.WriteLine($"{partySize} companions received {sum} coins each.");
+		}
+	}
+}
