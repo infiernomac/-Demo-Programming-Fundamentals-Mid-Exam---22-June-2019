@@ -1,0 +1,108 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+
+namespace Last_Stop
+{
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			List<int> numbers = Console.ReadLine().Split().Select(int.Parse).ToList();
+
+			while (true)
+			{
+				string[] imput = Console.ReadLine().Split().ToArray();
+
+				if (imput[0].Equals("END"))
+				{
+					break;
+				}
+				else if (imput[0].Equals("Change"))
+				{
+					int paintingNumber = int.Parse(imput[1]);
+					int changedNumber = int.Parse(imput[2]);
+
+					for (int i = 0; i < numbers.Count; i++)
+					{
+						if (numbers[i].Equals(paintingNumber))
+						{
+							numbers[i] = changedNumber;
+							break;
+						}
+					}
+				}
+				else if (imput[0].Equals("Hide"))
+				{
+
+					int paintingNumber = int.Parse(imput[1]);
+
+					for (int i = 0; i < numbers.Count; i++)
+					{
+						numbers.Remove(paintingNumber);
+					}
+
+				}
+				else if (imput[0].Equals("Switch"))
+				{
+					int paintingNumberOne = int.Parse(imput[1]);
+					int paintingNumberTwo = int.Parse(imput[2]);
+
+					bool existPaintingNumberOne = false;
+					bool existPaintingNumberTwo = false;
+					int existPaintingNumberOnePosition = 0;
+					int existPaintingNumberTwoPosition = 0;
+
+					int localPaint = 0;
+
+					for (int i = 0; i < numbers.Count; i++)
+					{
+						if (numbers[i].Equals(paintingNumberOne))
+						{
+							existPaintingNumberOne = true;
+							existPaintingNumberOnePosition = i;
+						}
+
+						if (numbers[i].Equals(paintingNumberTwo))
+						{
+							existPaintingNumberTwo = true;
+							existPaintingNumberTwoPosition = i;
+						}
+					}
+
+					if (existPaintingNumberOne && existPaintingNumberTwo)
+					{
+						localPaint = paintingNumberOne;
+						numbers[existPaintingNumberOnePosition] = paintingNumberTwo;
+						numbers[existPaintingNumberTwoPosition] = localPaint;
+					}
+
+				}
+				else if (imput[0].Equals("Insert"))
+				{
+					int place = int.Parse(imput[1]);
+					int paintingNumber = int.Parse(imput[2]);
+
+					if (place >= -1 && place < numbers.Count)
+					{
+						if (place.Equals(numbers.Count - 1))
+						{
+							numbers.Add(paintingNumber);
+						}
+						else
+						{
+							numbers.Insert(place + 1, paintingNumber);
+						}
+					}
+				}
+				else
+				{
+					numbers.Reverse();
+				}
+			}
+
+			Console.WriteLine(string.Join(" ", numbers));
+		}
+	}
+}
